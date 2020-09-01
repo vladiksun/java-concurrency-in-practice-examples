@@ -6,22 +6,22 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Replacing HashMap with ConcurrentHashMap
  *
- * Memoizer2 improves on the awful concurrent behavior of
- * Memoizer1 by replacing the HashMap with a ConcurrentHashMap.
+ * Memorizer2 improves on the awful concurrent behavior of
+ * Memorizer1 by replacing the HashMap with a ConcurrentHashMap.
  *
  * Since ConcurrentHashMap is thread-safe, there is no need to
  * synchronize when accessing the backing Map, thus eliminating
  * the serialization induced by synchronizing the "compute" method
- * in Memoizer1.
+ * in Memorizer1.
  *
- * Memoizer2 certainly has better concurrent behavior than Memoizer1:
+ * Memorizer2 certainly has better concurrent behavior than Memorizer1:
  * multiple threads can use it concurrently.
  *
  * <NOTE_problem_of_computing_the_same_value_twice>
  *
  * But it still has some defects as a cache - there is a window of vulnerability in
  * which two threads calling the "compute" method at the same time could
- * end up computing the same value. In the case of memoization, this is
+ * end up computing the same value. In the case of memorization, this is
  * merely inefficient as the purpose of a cache is to prevent the same data
  * being calculated multiple times.
  *
@@ -34,11 +34,11 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * </NOTE_problem_of_computing_the_same_value_twice>
  */
-public class Memoizer2 <A, V> implements Computable<A, V> {
+public class Memorizer2<A, V> implements Computable<A, V> {
     private final Map<A, V> cache = new ConcurrentHashMap<A, V>();
     private final Computable<A, V> c;
 
-    public Memoizer2(final Computable<A, V> c) {
+    public Memorizer2(final Computable<A, V> c) {
         this.c = c;
     }
 

@@ -10,21 +10,21 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 /**
- * Memoizer3 redefines the backing map for the value cache as a
+ * Memorizer3 redefines the backing map for the value cache as a
  * ConcurrentHashMap<A, FutureTask<V>> instead of ConcurrentHashMap<A, V>.
  *
- * Memoizer3 first check to see if the appropriate calculation has been started
- * (as opposed to finish in Memoizer2). If not it creates a FutureTask, registers it
+ * Memorizer3 first check to see if the appropriate calculation has been started
+ * (as opposed to finish in Memorizer2). If not it creates a FutureTask, registers it
  * in the Map, an starts the computation; otherwise it waits for the result of the
  * existing computation. The result might be available immediately or might be
  * in the process of being computed - but this is transparent to the caller of
  * Future.get*
  */
-public class Memoizer3<A, V> implements Computable<A, V> {
+public class Memorizer3<A, V> implements Computable<A, V> {
     private final Map<A, Future<V>> cache = new ConcurrentHashMap<>();
     private final Computable<A, V> c;
 
-    public Memoizer3(final Computable<A, V> c) {
+    public Memorizer3(final Computable<A, V> c) {
         this.c = c;
     }
 
@@ -41,21 +41,16 @@ public class Memoizer3<A, V> implements Computable<A, V> {
          * , both see that cache does not contain the desired value, and
          * both start the computation.
          *
-         * Memoizer3 is vulnerable to this problem because a compound action
+         * Memorizer3 is vulnerable to this problem because a compound action
          * (put-if-absent) is performed on the backing map that cannot be
          * made atomic using locking.
          *
-         * Solution: Final version, FinalMemoizer takes advantage of the atomic "putIfAbsent"
-         * method of ConcurrentMap, closing the window of vulnerability in Memoizer3.
+         * Solution: Final version, FinalMemorizer takes advantage of the atomic "putIfAbsent"
+         * method of ConcurrentMap, closing the window of vulnerability in Memorizer3.
          *
          */
         if (f == null) {
-            final Callable<V> eval = new Callable<V>() {
-                @Override
-                public V call() throws Exception {
-                    return Memoizer3.this.c.compute(arg);
-                }
-            };
+            final Callable<V> eval = () -> Memorizer3.this.c.compute(arg);
             final FutureTask<V> ft = new FutureTask<>(eval);
             f = ft;
             this.cache.put(arg, ft);
@@ -70,7 +65,7 @@ public class Memoizer3<A, V> implements Computable<A, V> {
              * Future attempts to call computation Future.get always throws the same exception
              * over and over again if task failed.
              *
-             * This problem is solved in FinalMemoizer by removing the Future from the cache if
+             * This problem is solved in FinalMemorizer by removing the Future from the cache if
              * computation failed.
              */
             return f.get();

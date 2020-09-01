@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 public class FactorizerMain {
 
     public static void main(String[] args) throws Exception {
-        //create a memoizer that performs factorials
-        final FinalMemoizer<Integer, Integer> memo = new FinalMemoizer<>(a -> {
+        //create a Memorizer that performs factorials
+        final FinalMemorizer<Integer, Integer> memo = new FinalMemorizer<>(a -> {
             int result = 1;
             for (int i = 1; i < a; i++) {
                 result = result * i;
@@ -16,11 +16,11 @@ public class FactorizerMain {
             return result;
         });
 
-        //now call the memoizer
+        // now call the Memorizer
         System.out.println(memo.compute(10));
 
 
-        //call it with 10 threads concurrently
+        // call it with 10 threads concurrently
         ExecutorService exec = Executors.newFixedThreadPool(10);
         ExecutorCompletionService<Integer> compService = new ExecutorCompletionService<>(exec);
 

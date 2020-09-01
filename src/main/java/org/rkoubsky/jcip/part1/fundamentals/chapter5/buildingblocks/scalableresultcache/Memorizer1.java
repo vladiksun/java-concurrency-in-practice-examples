@@ -6,23 +6,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Memoizer1
+ * Memorizer1
  *
  * Initial cache attempt using HashMap and synchronization
  *
  * @author Brian Goetz and Tim Peierls
  */
-public class Memoizer1 <A, V> implements Computable<A, V> {
+public class Memorizer1<A, V> implements Computable<A, V> {
     @GuardedBy("this") private final Map<A, V> cache = new HashMap<A, V>();
     private final Computable<A, V> c;
 
-    public Memoizer1(final Computable<A, V> c) {
+    public Memorizer1(final Computable<A, V> c) {
         this.c = c;
     }
 
     /**
      * HashMap is not thread-safe, so to ensure that two threads do not
-     * access the HashMap at the same time, Memoizer1 takes the conservative
+     * access the HashMap at the same time, Memorizer1 takes the conservative
      * approach of synchronizing the entire compute method.
      *
      * Synchronizing the entire method ensures thread safety but has an obvious

@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import java.math.BigInteger;
 
 /**
- * Factorizing servlet that caches results using Memoizer
+ * Factorizing servlet that caches results using Memorizer
  *
- * FactorizerServlet uses FinalMemoizer to cache previously computed values
+ * FactorizerServlet uses FinalMemorizer to cache previously computed values
  * efficiently and scalably.
  */
 @ThreadSafe
@@ -24,7 +24,7 @@ public class FactorizerServlet extends GenericServlet implements Servlet {
                 }
             };
 
-    private final Computable<BigInteger, BigInteger[]> cache = new FinalMemoizer<BigInteger, BigInteger[]>(this.c);
+    private final Computable<BigInteger, BigInteger[]> cache = new FinalMemorizer<BigInteger, BigInteger[]>(this.c);
 
     @Override
     public void service(final ServletRequest req, final ServletResponse resp) {
