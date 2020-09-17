@@ -1,5 +1,7 @@
 package org.rkoubsky.jcip.part2.structuringconcurrentapplications.chapter8.threadpools.starvationdeadlock;
 
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,6 +66,7 @@ import java.util.concurrent.Future;
  *
  * </NOTE_implicit_coupling_between_task_and_execution_policies>
  */
+@DoNotDoThis
 public class ThreadDeadLock {
     ExecutorService exec = Executors.newSingleThreadExecutor();
 

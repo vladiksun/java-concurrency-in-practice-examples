@@ -1,8 +1,11 @@
 package org.rkoubsky.jcip.part1.fundamentals.chapter3.sharingobjects.escape;
 
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
+
 /**
  * Implicitly allowing the this reference to escape. Don't do this.
  */
+@DoNotDoThis
 public class ThisEscape {
     /**
      * Another mechanism an object can be published: publishing an inner class instance

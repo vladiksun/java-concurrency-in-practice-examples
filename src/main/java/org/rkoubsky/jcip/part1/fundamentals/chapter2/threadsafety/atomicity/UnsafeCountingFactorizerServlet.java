@@ -1,6 +1,7 @@
 package org.rkoubsky.jcip.part1.fundamentals.chapter2.threadsafety.atomicity;
 
 import net.jcip.annotations.NotThreadSafe;
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.Servlet;
@@ -45,6 +46,7 @@ import java.math.BigInteger;
 public class UnsafeCountingFactorizerServlet extends GenericServlet implements Servlet {
     private long count;
 
+    @DoNotDoThis
     @Override
     public void service(final ServletRequest req, final ServletResponse resp) throws ServletException, IOException {
         final BigInteger i = this.extractFromRequest(req);

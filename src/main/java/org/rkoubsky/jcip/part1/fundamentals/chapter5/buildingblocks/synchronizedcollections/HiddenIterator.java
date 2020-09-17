@@ -2,6 +2,7 @@ package org.rkoubsky.jcip.part1.fundamentals.chapter5.buildingblocks.synchronize
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.NotThreadSafe;
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -11,6 +12,7 @@ import java.util.Set;
  * Iteration hidden within string concatenation. Don't do this.
  *
  */
+@DoNotDoThis
 @NotThreadSafe
 public class HiddenIterator {
     @GuardedBy("this") private final Set<Integer> set = new HashSet<>();

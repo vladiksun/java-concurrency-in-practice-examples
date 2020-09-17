@@ -1,5 +1,7 @@
 package org.rkoubsky.jcip.part2.structuringconcurrentapplications.chapter7.cancellationandshutdown.cancellation.interruption;
 
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
+
 import java.math.BigInteger;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,6 +16,7 @@ import java.util.concurrent.BlockingQueue;
  * and places them on a blocking queue. If the producer gets ahead of consumer,
  * the queue will fill up and the "put" method will block.
  */
+@DoNotDoThis
 class BrokenPrimeProducer extends Thread {
     private final BlockingQueue<BigInteger> queue;
     private volatile boolean cancelled = false;

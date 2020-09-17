@@ -1,5 +1,7 @@
 package org.rkoubsky.jcip.part2.structuringconcurrentapplications.chapter7.cancellationandshutdown.cancellation.timedrun;
 
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * problem of unchecked exceptions thrown from the task, since they can
  * then be caught by the caller of "timedRun"
  */
+@DoNotDoThis
 public class TimedRun1 {
     private static final ScheduledExecutorService cancelExec = Executors.newScheduledThreadPool(1);
 
@@ -41,7 +44,7 @@ public class TimedRun1 {
          *
          * If the r.run() completes before the timeout, the cancellation task
          * that interrupts the thread in which timedRun was called could go off
-         * after timedRun has returned to its caller. We con't know what code
+         * after timedRun has returned to its caller. We don't know what code
          * will be running when that happens, but the result won't be good.
          *
          * The {@link TimedRun2} addresses the exception-handling of aSecondOfPrimes
