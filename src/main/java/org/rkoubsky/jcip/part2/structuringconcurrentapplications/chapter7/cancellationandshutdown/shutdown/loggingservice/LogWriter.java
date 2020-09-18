@@ -1,5 +1,7 @@
 package org.rkoubsky.jcip.part2.structuringconcurrentapplications.chapter7.cancellationandshutdown.shutdown.loggingservice;
 
+import org.rkoubsky.jcip.annotations.DoNotDoThis;
+
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.concurrent.BlockingQueue;
@@ -43,6 +45,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * To fix the race condition means making the submission of a new log message
  * atomic, see the
  */
+@DoNotDoThis
 public class LogWriter {
     private final BlockingQueue<String> queue;
     private final LoggerThread logger;
